@@ -5,6 +5,7 @@ import { Button } from "./components/Button";
 import LineItem from "./components/LineItem/LineItem";
 import { Section } from "./components/Section";
 import { TextInput } from "./components/TextInput";
+import { StatusBar } from "expo-status-bar";
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
 export default function Main() {
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       <Text style={styles.zopa}>Zopa</Text>
       <ScrollView
         style={styles.scrollView}

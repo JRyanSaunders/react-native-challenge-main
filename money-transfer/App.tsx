@@ -1,13 +1,11 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-
-import Main from "./src/Main";
+import { NavigationContainer } from "@react-navigation/native";
+import AppStack from "./src/navigation/stacks/AppStack";
 
 export default function App() {
   return (
-    <>
-      <StatusBar style="auto" />
-      <Main />
-    </>
+    <NavigationContainer>
+      <AppStack />
+    </NavigationContainer>
   );
 }
