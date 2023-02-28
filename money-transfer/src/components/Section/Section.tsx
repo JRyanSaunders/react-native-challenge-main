@@ -4,6 +4,7 @@ import { colors } from "../colors";
 
 export interface ISectionProps {
   header?: string;
+  children?: React.ReactNode
 }
 
 const styles = StyleSheet.create({
