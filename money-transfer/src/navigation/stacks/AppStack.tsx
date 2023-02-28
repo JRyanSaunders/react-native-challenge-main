@@ -7,7 +7,7 @@ const Stack = createNativeStackNavigator();
 
 export default function AppStack(): ReactElement {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name={AppStackRoutes.MainTabs} component={MainTabs} />
     </Stack.Navigator>
   );
