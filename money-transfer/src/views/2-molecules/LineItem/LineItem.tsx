@@ -1,6 +1,6 @@
 import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
-import { colors } from "../colors";
+import { colors } from "../../../styles/colors";
 
 export type TLineItemProps = {
   /** shows a divider at the bottom */

@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NativeSyntheticEvent,
   StyleSheet,
@@ -7,7 +7,7 @@ import {
   TextInputProps,
   View,
 } from "react-native";
-import { colors } from "../colors";
+import { colors } from "../../../styles/colors";
 
 export type TTextInputFocusEvent =
   NativeSyntheticEvent<TextInputFocusEventData>;

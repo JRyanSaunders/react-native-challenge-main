@@ -1,6 +1,6 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { StyleSheet, View, ViewStyle, TextStyle, Text } from "react-native";
-import { colors } from "../colors";
+import { colors } from "../../../styles/colors";
 
 export type TBannerType = "error" | "success";
 export type TBannerSize = "small" | "regular";

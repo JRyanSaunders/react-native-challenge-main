@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { colors } from "../colors";
+import { colors } from "../../../styles/colors";
 
 export interface ISectionProps {
   header?: string;
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }
 
 const styles = StyleSheet.create({

@@ -1,10 +1,10 @@
 import React from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Banner } from "./components/Banner";
-import { Button } from "./components/Button";
-import LineItem from "./components/LineItem/LineItem";
-import { Section } from "./components/Section";
-import { TextInput } from "./components/TextInput";
+import { Banner } from "../2-molecules/Banner";
+import { Button } from "../1-atoms/Button";
+import LineItem from "../2-molecules/LineItem/LineItem";
+import { Section } from "../3-organisms/Section";
+import { TextInput } from "../1-atoms/TextInput";
 import { StatusBar } from "expo-status-bar";
 
 const styles = StyleSheet.create({
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Main() {
+export default function Home() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
