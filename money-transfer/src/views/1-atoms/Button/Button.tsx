@@ -81,6 +81,7 @@ export interface IButtonProps {
   width?: TButtonWidth;
   children: string | string[];
   onPress?: () => any;
+  testId: string;
 }
 
 const Button = ({
@@ -88,6 +89,7 @@ const Button = ({
   width = "relative",
   children,
   onPress,
+  testId,
 }: IButtonProps) => {
   let containerStyle;
   let touchableStyle;
@@ -119,7 +121,7 @@ const Button = ({
   }
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View style={[styles.container, containerStyle]} testID={testId}>
       <Pressable style={[styles.touchable, touchableStyle]} onPress={onPress}>
         <View
           style={[

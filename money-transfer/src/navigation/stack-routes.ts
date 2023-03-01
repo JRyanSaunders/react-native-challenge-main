@@ -4,5 +4,5 @@ export enum AppStackRoutes {
 
 export enum MainTabRoutes {
   Home = "Home",
-  Transfer = "Transfer",
+  History = "History",
 }

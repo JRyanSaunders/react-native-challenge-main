@@ -11,7 +11,7 @@ import { colors } from "../../../styles/colors";
 
 export type TTextInputFocusEvent =
   NativeSyntheticEvent<TextInputFocusEventData>;
-type TTextInputType = "email" | "number";
+export type TTextInputType = "text" | "email" | "number";
 
 export interface ITextInputProps extends TextInputProps {
   error?: boolean;
@@ -50,10 +50,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const messages = {
-  clearTextAccessibilityLabel: "clear text",
-};
-
 const TextInput = ({
   error,
   onFocus,
@@ -68,6 +64,13 @@ const TextInput = ({
   let typeProps: TextInputProps = {};
 
   switch (type) {
+    case "text":
+      typeProps = {
+        keyboardType: "default",
+        autoCapitalize: "none",
+        autoCorrect: false,
+      };
+      break;
     case "email":
       typeProps = {
         keyboardType: "email-address",

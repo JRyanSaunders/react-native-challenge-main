@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../../views/4-screens/Home/Home";
-import Transfer from "../../views/4-screens/Transfer/Transfer";
+import History from "../../views/4-screens/History/History";
 import { MainTabRoutes } from "../stack-routes";
 import { Feather } from "@expo/vector-icons";
 import { Colors } from "react-native/Libraries/NewAppScreen";
@@ -27,8 +27,8 @@ export default function MainTabs(): ReactElement {
         }}
       />
       <Tab.Screen
-        name={MainTabRoutes.Transfer}
-        component={Transfer}
+        name={MainTabRoutes.History}
+        component={History}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name="columns" size={size} color={color} />

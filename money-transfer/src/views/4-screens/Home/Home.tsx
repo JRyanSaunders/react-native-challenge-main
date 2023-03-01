@@ -1,86 +1,149 @@
-import React from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Banner } from "../../2-molecules/Banner";
+import React, { ReactElement, useContext, useState } from "react";
+import { SafeAreaView, ScrollView } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { Button } from "../../1-atoms/Button";
 import LineItem from "../../2-molecules/LineItem/LineItem";
 import { Section } from "../../3-organisms/Section";
-import { TextInput } from "../../1-atoms/TextInput";
-import { StatusBar } from "expo-status-bar";
+import styles from "./Home.styles";
+import { Banner } from "../../2-molecules/Banner";
+import { useShowComponentTimer } from "../../../hooks/use-show-timer";
+import {
+  validateAmount,
+  validateEmailAddress,
+  validateFirstName,
+} from "../../../utils/validation";
+import { TextInputWithLabel } from "../../2-molecules/TextInputWithLabel/TextInputWithLabel";
+import { FormContext } from "../../../data/form-context";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 48,
-  },
-  scrollView: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  scrollViewContainer: {
-    paddingHorizontal: 16,
-    marginBottom: 32,
-  },
-  zopa: {
-    fontSize: 18,
-    fontWeight: "600",
-    textAlign: "center",
-    marginBottom: 16,
-  },
-  spacer: {
-    marginVertical: 16,
-  },
-});
+interface IFormState {
+  title: string;
+  value: string;
+  subTitle: string;
+}
 
-export default function Home() {
+type InputValue = {
+  value: string;
+  error: boolean;
+};
+
+export default function Home(): ReactElement {
+  const { formValues, setFormValues } = useContext(FormContext);
+  const [showComponent, startShowComponentTimer] = useShowComponentTimer();
+  const [firstName, setFirstName] = useState<InputValue>({
+    value: "",
+    error: false,
+  });
+  const [emailAddress, setEmailAddress] = useState<InputValue>({
+    value: "",
+    error: false,
+  });
+  const [amount, setAmount] = useState<InputValue>({
+    value: "",
+    error: false,
+  });
+
+  const handleSubmitForm = () => {
+    const { value: firstNameValue } = firstName;
+    const { value: emailAddressValue } = emailAddress;
+    const { value: amountValue } = amount;
+
+    if (!validateFirstName(firstNameValue)) {
+      setFirstName({ value: firstNameValue, error: true });
+      return;
+    }
+
+    if (!validateEmailAddress(emailAddressValue)) {
+      setEmailAddress({ value: emailAddressValue, error: true });
+      return;
+    }
+
+    if (!validateAmount(amountValue)) {
+      setAmount({ value: amountValue, error: true });
+      return;
+    }
+
+    const newFormValues: IFormState[] = [
+      ...formValues,
+      {
+        title: firstNameValue,
+        subTitle: emailAddressValue,
+        value: amountValue,
+      },
+    ];
+
+    setFormValues(newFormValues);
+    startShowComponentTimer();
+
+    setFirstName({ value: "", error: false });
+    setEmailAddress({ value: "", error: false });
+    setAmount({ value: "", error: false });
+  };
+
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <Text style={styles.zopa}>Zopa</Text>
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="dark" />
+      {showComponent && (
+        <Banner type="success" size="regular">
+          The money has been sent!
+        </Banner>
+      )}
+
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContainer}
       >
-        <>
-          <Text>
-            Below is a list of components you can use to build your application.
-          </Text>
-          <View style={styles.spacer} />
-          <Text>TextInput</Text>
-          <TextInput value="Default" />
-          <TextInput value="Error, number" type="number" error={true} />
-          <View style={styles.spacer} />
-          <Text>Banner</Text>
-          <Banner type="success" size="regular">
-            Success banner
-          </Banner>
-          <Banner type="error" size="small">
-            Error banner
-          </Banner>
-          <View style={styles.spacer} />
-          <Text>Button</Text>
-          <Button onPress={() => Alert.alert("OK!")}>Default</Button>
-          <Button
-            width="full"
-            type="primary"
-            onPress={() => Alert.alert("OK!")}
-          >
-            Primary; full-width
-          </Button>
-          <View style={styles.spacer} />
-          <Text>Section and LineItem</Text>
-          <Section header="Elements">
-            <LineItem title="Title" />
-            <LineItem title="Title" subtitle="Subtitle" />
+        <TextInputWithLabel
+          label="First name"
+          value={firstName.value}
+          type="text"
+          error={firstName.error}
+          onChangeText={(text) =>
+            setFirstName({ value: text, error: !validateFirstName(text) })
+          }
+          accessibilityLabel="First name"
+        />
+        <TextInputWithLabel
+          label="Email address"
+          value={emailAddress.value}
+          type="email"
+          error={emailAddress.error}
+          onChangeText={(text) =>
+            setEmailAddress({ value: text, error: !validateEmailAddress(text) })
+          }
+          accessibilityLabel="Email address"
+        />
+        <TextInputWithLabel
+          label="Amount"
+          value={amount.value}
+          type="number"
+          error={amount.error}
+          onChangeText={(text) =>
+            setAmount({ value: text, error: !validateAmount(text) })
+          }
+          accessibilityLabel="Amount"
+        />
+
+        <Button
+          width="full"
+          type="primary"
+          onPress={handleSubmitForm}
+          testId="send-button"
+        >
+          Send
+        </Button>
+
+        <Section header="Transactions">
+          {formValues.map((value, index) => (
             <LineItem
-              title="Title"
-              value="Value"
-              subValue="Sub value"
+              key={index}
+              title={value.title}
+              value={`-£${parseInt(value.value).toFixed(2)}`}
+              subtitle={value.subTitle}
               divider={false}
             />
-          </Section>
-          <View style={styles.spacer} />
-        </>
+          ))}
+        </Section>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
