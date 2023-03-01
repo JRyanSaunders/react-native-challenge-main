@@ -10,7 +10,6 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
   },
   scrollViewContainer: {
-    paddingHorizontal: 16,
     marginBottom: 32,
   },
   spacer: {

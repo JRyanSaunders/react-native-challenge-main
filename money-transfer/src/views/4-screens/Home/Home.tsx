@@ -1,5 +1,5 @@
 import React, { ReactElement, useContext, useState } from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "../../1-atoms/Button";
 import LineItem from "../../2-molecules/LineItem/LineItem";
@@ -92,45 +92,50 @@ export default function Home(): ReactElement {
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContainer}
       >
-        <TextInputWithLabel
-          label="First name"
-          value={firstName.value}
-          type="text"
-          error={firstName.error}
-          onChangeText={(text) =>
-            setFirstName({ value: text, error: !validateFirstName(text) })
-          }
-          accessibilityLabel="First name"
-        />
-        <TextInputWithLabel
-          label="Email address"
-          value={emailAddress.value}
-          type="email"
-          error={emailAddress.error}
-          onChangeText={(text) =>
-            setEmailAddress({ value: text, error: !validateEmailAddress(text) })
-          }
-          accessibilityLabel="Email address"
-        />
-        <TextInputWithLabel
-          label="Amount"
-          value={amount.value}
-          type="number"
-          error={amount.error}
-          onChangeText={(text) =>
-            setAmount({ value: text, error: !validateAmount(text) })
-          }
-          accessibilityLabel="Amount"
-        />
+        <View style={styles.form}>
+          <TextInputWithLabel
+            label="First name"
+            value={firstName.value}
+            type="text"
+            error={firstName.error}
+            onChangeText={(text) =>
+              setFirstName({ value: text, error: !validateFirstName(text) })
+            }
+            accessibilityLabel="First name"
+          />
+          <TextInputWithLabel
+            label="Email address"
+            value={emailAddress.value}
+            type="email"
+            error={emailAddress.error}
+            onChangeText={(text) =>
+              setEmailAddress({
+                value: text,
+                error: !validateEmailAddress(text),
+              })
+            }
+            accessibilityLabel="Email address"
+          />
+          <TextInputWithLabel
+            label="Amount"
+            value={amount.value}
+            type="number"
+            error={amount.error}
+            onChangeText={(text) =>
+              setAmount({ value: text, error: !validateAmount(text) })
+            }
+            accessibilityLabel="Amount"
+          />
 
-        <Button
-          width="full"
-          type="primary"
-          onPress={handleSubmitForm}
-          testId="send-button"
-        >
-          Send
-        </Button>
+          <Button
+            width="full"
+            type="primary"
+            onPress={handleSubmitForm}
+            testId="send-button"
+          >
+            Send
+          </Button>
+        </View>
 
         <Section header="Transactions">
           {formValues.map((value, index) => (

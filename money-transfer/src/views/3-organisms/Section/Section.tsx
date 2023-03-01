@@ -13,9 +13,11 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   header: {
-    paddingVertical: 8,
+    paddingTop: 24,
+    paddingBottom: 8,
     paddingHorizontal: 16,
     color: colors.greyDark,
+    backgroundColor: colors.greyLightest,
   },
   divider: {
     borderBottomColor: colors.grey,
